@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding='Windows-1251'?>
+<!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN"
+  "http://colorer.sf.net/2003/hrc.dtd">
+<hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd">
+<!--
+    Igor Syntax highlights
+	by Matvey Bakirov
+	based on
+    C# Syntax description
+-->
+<annotation>
+    <documentation>
+        Igor Syntax highlights
+    </documentation>
+    <appinfo>
+     	<mime type='text/igor'/>
+     	<mime type='application/igor'/>
+    </appinfo>
+</annotation>
+<prototype name ="igor" group="Artplant" description="Igor">
+    <filename>/\.igor$/i</filename>
+</prototype>
+
+<type name="igor">
+
+    <import type="def"/>
+
+    
+    <region name="igorComment" parent="Comment"/>
+    <region name="igorTypes" parent="SymbolStrong"/>
+    <region name="igorTargetsFormats" parent="Directive"/>
+    <region name="igorKeywords" parent="Keyword"/>
+    <region name="igorAtributes" parent="ParameterUnknown"/>
+    <region name="igorC2S" parent="Number"/> 
+    <region name="igorS2C" parent="Register"/> 
+    <region name="csString" parent="String"/>
+    <region name="igorSymbol" parent="Symbol"/>
+    <region name="igorSymbolStrong" parent="SymbolStrong"/>
+    <region name="igorOpenStruct" parent="PairStart"/>
+    <region name="igorCloseStruct" parent="PairEnd"/>
+    <region name="igorError" parent="Error"/>
+
+    <region name="FuncOutline" parent="def:Outlined"/>
+    <region name="ClassOutline" parent="def:Outlined"/>
+    <region name="vbString" parent="def:String"/>
+
+    <scheme name="verbatim-string">
+     <block start="/@(&quot;)/" end="/.*?(&quot;)?~1\m(&quot;)\M(&quot;)?!/"
+        region="vbString" scheme="vbstring.content"
+        region00='string.quote' region01="def:PairStart"
+        region10='string.quote' region12="def:PairEnd"		
+    />
+    </scheme>
+
+    <scheme name="vbstring.content">
+
+    </scheme>
+
+    <scheme name="igor">
+     <inherit scheme="verbatim-string"/>
+     <inherit scheme="CString"/>
+     <inherit scheme="CHexNumber"/>
+     <inherit scheme="FloatNumber"/>
+     <inherit scheme="DecNumber"/>
+     <inherit scheme="PairedBrackets">
+        <virtual scheme="PairedBrackets" subst-scheme="igor"/>
+     </inherit>
+     <block start="/\/\*/" end="/\*\//" scheme="Comment" region="igorComment" region00="igorOpenStruct" region10="igorCloseStruct"/>
+     <regexp match="/\/\/.*$/" region0="igorComment"/>
+     <regexp match="/'(.|\\['])'/" region0="csString"/>
+     <block start="/^\s*(#region) (.*)$/" end="/^\s*(#endregion)(.*)$/" scheme="igor" region01="igorOpenStruct" region11="igorCloseStruct" region00="Directive" region10="Directive" region02="Comment" region12="Comment"/>
+     <block start="/(\()/" end="/(\))/" scheme="igor" region00="igorSymbol" region10="igorSymbol" region01="igorOpenStruct" region11="igorCloseStruct"/>
+     <block start="/(\{)/" end="/(\})/" scheme="igor" region00="igorSymbolStrong" region10="igorSymbolStrong" region01="igorOpenStruct" region11="igorCloseStruct"/>
+     <block start="/(\[)/" end="/(\])/" scheme="igor" region00="igorSymbol" region10="igorSymbol" region01="igorOpenStruct" region11="igorCloseStruct"/>
+     
+     <regexp><![CDATA[
+       /^ \M \s*
+       (\w [\w*\[\]\s]+? [*\[\]\s]) (delegate \s* \([\w_*~,\[\]\s]*\)\s*)?
+
+       (?{igor:FuncOutline}
+        ([\w]+?)
+       )
+
+       (\sfor)?~4 (\sif)?~3 (\swhile)?~6 (\sdo)?~3 (\sswitch)?~7 (\scatch)?~6 (\sforeach)?~8
+
+       \s* \( (.* \( [^\(\)]* \))* ( [^\)]*?\) | [^\);]*? )
+       \s* ($|\{|\/) /x
+     ]]></regexp>
+     <regexp><![CDATA[
+       /\M
+       class \s+
+       (?{ClassOutline}
+        [\:\w]+ [\:\w\s]*? ([^;]|$)
+       )/x
+     ]]></regexp>
+     
+
+     <keywords region="igorSymbol">
+        <symb name=";" region="igorSymbolStrong"/>
+        <symb name=":"/>
+        <symb name="+"/>
+        <symb name="-"/>
+        <symb name="*"/>
+        <symb name="/"/>
+        <symb name="%"/>
+        <symb name="="/>
+        <symb name="."/>
+        <symb name=","/>
+        <symb name="&lt;"/>
+        <symb name="&gt;"/>
+        <symb name="!"/>
+     </keywords>
+     <keywords region="igorError">
+        <symb name="{"/>
+        <symb name="}"/>
+        <symb name="("/>
+        <symb name=")"/>
+        <symb name="["/>
+        <symb name="]"/>
+        <symb name="*/"/>
+     </keywords>
+     <keywords region="igorTypes">
+        <word name="bool"/>
+        <word name="byte"/>
+        <word name="sbyte"/>
+        <word name="short"/>
+        <word name="ushort"/>
+        <word name="int"/>
+        <word name="uint"/>
+        <word name="long"/>
+        <word name="ulong"/>
+        <word name="float"/>
+        <word name="double"/>
+        <word name="string"/>
+        <word name="binary"/>
+        <word name="atom"/>
+        <word name="list"/>
+        <word name="dict"/>
+    </keywords>
+    <keywords region="igorTargetsFormats">     
+        <word name="erlang"/>
+        <word name="csharp"/>
+        <word name="json"/>
+        <word name="igor"/>
+    </keywords>
+    <keywords region="igorKeywords">     
+        <word name="module"/>
+        <word name="record"/>
+        <word name="interface"/>
+        <word name="enum"/>
+        <word name="variant"/>
+        <word name="exception"/>
+        <word name="define"/>
+        <word name="service"/>
+        <word name="returns"/>
+        <word name="throws"/>
+    </keywords>
+    <keywords region="igorAtributes">    
+        <word name="true"/>
+        <word name="false"/>
+        <word name="namespace"/>
+        <word name="name"/>
+        <word name="key"/>
+        <word name="parser"/>
+        <word name="packer"/>
+        <word name="type"/>
+        <word name="ethereal"/>
+        <word name="alias"/>
+        <word name="tag"/>
+        <word name="enabled"/>
+        <word name="setup_ctor"/>
+        <word name="declaration"/>
+        <word name="callback"/>
+        <word name="dispatcher"/>
+		<word name="catalogue"/>
+		<word name="catalogue_name"/>
+    </keywords>
+    <keywords region="igorS2C">    
+        <word name="s-&gt;c"/>
+    </keywords>
+    <keywords region="igorC2S"> 
+        <word name="c-&gt;s"/>
+     </keywords>
+    </scheme>
+
+   </type>
+</hrc>
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is the Colorer Library.
+   -
+   - The Initial Developer of the Original Code is
+   - Cail Lomecb <cail@nm.ru>.
+   - Portions created by the Initial Developer are Copyright (C) 1999-2005
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->

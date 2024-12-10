@@ -1,0 +1,2 @@
+// $Expected error "Expected: 'using' or 'module'"
+ModuleName { }

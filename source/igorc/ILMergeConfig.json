@@ -1,0 +1,52 @@
+{
+  "General": {
+    "OutputFile": "../../bin/igorc.exe",
+    "TargetPlatform": null,
+    "KeyFile": null,
+    "AlternativeILMergePath": null,
+    "InputAssemblies": [
+        "Igor.Cli.exe",
+        "Igor.Core.dll",
+        "Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll",
+        "Artplant.Json.dll",
+        "OneOf.dll",
+        "Igor.Model.dll",
+        "Igor.Erlang.dll",
+        "Igor.CSharp.dll",
+        "Igor.TypeScript.dll",
+        "Igor.JavaScript.dll",
+        "Igor.UE4.dll",
+        "Igor.Lua.dll",
+        "Igor.Go.dll",
+        "Igor.Elixir.dll",
+        "Igor.Python.dll",
+        "Igor.Schema.dll",
+        "Igor.JsonSchema.dll",
+        "Igor.Xsd.dll",
+        "Igor.Sql.dll"
+    ]
+  },
+  "Advanced": {
+    "AllowDuplicateType": null,
+    "AllowMultipleAssemblyLevelAttributes": false,
+    "AllowWildCards": false,
+    "AllowZeroPeKind": false,
+    "AttributeFile": null,
+    "Closed": false,
+    "CopyAttributes": false,
+    "DebugInfo": true,
+    "DelaySign": false,
+    "DeleteCopiesOverwriteTarget": false,
+    "ExcludeFile": "",
+    "FileAlignment": 512,
+    "Internalize": false,
+    "Log": false,
+    "LogFile": null,
+    "PublicKeyTokens": true,
+    "SearchDirectories": [],
+    "TargetKind": null,
+    "UnionMerge": false,
+    "Version": null,
+    "XmlDocumentation": true
+  }
+}

@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Igor.Core\Igor.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Ast\AST.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AST.cs</LastGenOutput>
+    </None>
+    <None Update="Ast\SqlMapper.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SqlMapper.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Ast\AST.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AST.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Ast\SqlMapper.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SqlMapper.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

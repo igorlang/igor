@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Igor.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "-list-targets"
+    }
+  }
+}

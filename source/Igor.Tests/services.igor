@@ -1,0 +1,12 @@
+module ServicesSample
+{
+    exception Exception1
+    {
+    }
+
+    service TestService
+    {
+        c->s ClientToServer(int val);
+        c->s ClientToServerRpc(int val) returns (string str) throws Exception1;
+    }
+}

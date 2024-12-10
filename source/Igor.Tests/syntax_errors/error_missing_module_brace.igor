@@ -1,0 +1,2 @@
+// $Expected error "Expected: '{'"
+module MissingBraceModule }

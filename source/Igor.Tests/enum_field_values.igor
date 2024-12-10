@@ -1,0 +1,10 @@
+module EnumFieldValues
+{
+    enum TestEnum
+    {  
+        first = 1;
+        third = 3;
+        // $Expect that @last.Value = 4
+        last;
+    }
+}

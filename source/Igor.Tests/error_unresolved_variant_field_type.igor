@@ -1,0 +1,21 @@
+module UnresolvedVariantFieldType
+{
+    enum BlockType
+    {
+        selector;
+    }
+    
+    variant Block
+    {
+        Layout layout; // $Expected error "Unresolved reference"
+        tag BlockType type;
+    }
+    
+    variant Block.BlockComposite
+    {
+    }
+
+    record BlockComposite.BlockSelector[selector]
+    {
+    }
+}

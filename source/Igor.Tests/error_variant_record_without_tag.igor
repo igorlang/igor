@@ -1,0 +1,18 @@
+module BrokenVariants
+{
+    enum VariantType
+    {
+        tag1;
+        tag2;
+    }
+
+    variant Variant
+    {
+        tag VariantType type;
+    }
+    
+    // $Expected error "Tag value is not specified for variant record"
+    record Variant.RecordWithoutTag
+    {
+    }
+}

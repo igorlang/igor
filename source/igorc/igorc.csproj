@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>Igor.Cli</RootNamespace>
+    <AssemblyVersion>2.1.4.0</AssemblyVersion>
+    <FileVersion>2.1.4.0</FileVersion>
+    <Version>2.1.4</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\bin</OutputPath>
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ILMerge" Version="3.0.41" />
+    <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Igor.Cli\Igor.Cli.csproj" />
+    <ProjectReference Include="..\Igor.Core\Igor.Core.csproj" />
+    <ProjectReference Include="..\Igor.CSharp\Igor.CSharp.csproj" />
+    <ProjectReference Include="..\Igor.Elixir\Igor.Elixir.csproj" />
+    <ProjectReference Include="..\Igor.Erlang\Igor.Erlang.csproj" />
+    <ProjectReference Include="..\Igor.Go\Igor.Go.csproj" />
+    <ProjectReference Include="..\Igor.JavaScript\Igor.JavaScript.csproj" />
+    <ProjectReference Include="..\Igor.JsonSchema\Igor.JsonSchema.csproj" />
+    <ProjectReference Include="..\Igor.Lua\Igor.Lua.csproj" />
+    <ProjectReference Include="..\Igor.Model\Igor.Model.csproj" />
+    <ProjectReference Include="..\Igor.Python\Igor.Python.csproj" />
+    <ProjectReference Include="..\Igor.Schema\Igor.Schema.csproj" />
+    <ProjectReference Include="..\Igor.Sql\Igor.Sql.csproj" />
+    <ProjectReference Include="..\Igor.TypeScript\Igor.TypeScript.csproj" />
+    <ProjectReference Include="..\Igor.UE4\Igor.UE4.csproj" />
+    <ProjectReference Include="..\Igor.Xsd\Igor.Xsd.csproj" />
+  </ItemGroup>
+</Project>

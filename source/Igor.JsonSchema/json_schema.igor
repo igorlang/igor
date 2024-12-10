@@ -1,0 +1,127 @@
+[* json.enabled]
+[csharp namespace="Igor.JsonSchema"]
+module JsonSchemaProtocol
+{
+    define AnchorString string;
+    define UriString string;
+    define UriReferenceString string;
+    
+    define SchemaArray list<JsonSchema>;
+
+    enum SimpleType
+    {
+        array;
+        boolean;
+        integer;
+        null;
+        number;
+        object;
+        string;
+    }
+
+    define SimpleTypes SimpleType | list<SimpleType>;
+    define JsonSchemaOrBool JsonSchema | bool;
+
+    [csharp name="SchemaObject"]
+    record JsonSchema
+    {
+        // Core vocabulary meta-schema
+
+        [* json.key="$id"]
+        ?UriReferenceString id;
+
+        [* json.key="$schema"]
+        ?UriString schema;
+
+        [* json.key="$ref"]
+        ?UriReferenceString ref;
+
+        [* json.key="$anchor"]
+        ?AnchorString anchor;
+
+        [* json.key="$dynamicRef"]
+        ?UriReferenceString dynamicRef;
+
+        [* json.key="$dynamicAnchor"]
+        ?AnchorString dynamicAnchor;
+
+        [* json.key="$vocabulary"]
+        ?dict<UriString, bool> vocabulary;
+
+        [* json.key="$comment"]
+        ?string comment;
+
+        [* json.key="$defs"]
+        ?dict<string, JsonSchema> defs;
+
+        // Before JSON Schema 2019-09
+        ?dict<string, JsonSchema> definitions;
+
+        // Applicator vocabulary meta-schema
+
+        ?SchemaArray prefixItems;
+        ?JsonSchema items;
+        ?JsonSchema contains;
+        ?JsonSchemaOrBool additionalProperties;
+        ?dict<string, JsonSchema> properties;
+        ?dict<string, JsonSchema> patternProperties;
+        ?dict<string, JsonSchema> dependentSchemas;
+        ?JsonSchema propertyNames;
+        ?JsonSchema if;
+        ?JsonSchema then;
+        ?JsonSchema else;
+        ?SchemaArray allOf;
+        ?SchemaArray anyOf;
+        ?SchemaArray oneOf;
+        ?JsonSchema not;
+
+        // Validation vocabulary meta-schema
+
+        ?SimpleTypes type;
+        ?json const;
+        ?list<string> enum;
+        ?double multipleOf;
+        ?double maximum;
+        ?double exclusiveMaximum;
+        ?double minimum;
+        ?double exclusiveMinimum;
+        ?uint maxLength;
+        ?uint minLength;
+        ?string pattern;
+        ?uint maxItems;
+        ?uint minItems;
+        ?bool uniqueItems;
+        ?uint maxContains;
+        ?uint minContains;
+        ?uint maxProperties;
+        ?uint minProperties;
+        ?list<string> required;
+        ?dict<string, list<string>> dependentRequired;
+
+        // Unevaluated applicator vocabulary meta-schema
+
+        ?JsonSchema unevaluatedItems;
+        ?JsonSchema unevaluatedProperties;
+
+        // Format vocabulary meta-schema for annotation results
+        // Format vocabulary meta-schema for assertion results
+
+        ?string format;
+
+        // Content vocabulary meta-schema
+
+        ?string contentEncoding;
+        ?string contentMediaType;
+        ?JsonSchema contentSchema;
+
+        // Meta-data vocabulary meta-schema
+
+        ?string title;
+        ?string description;
+        ?json default;
+        ?bool deprecated;
+        ?bool readOnly;
+        ?bool writeOnly;
+        ?list<json> examples;
+    }
+}

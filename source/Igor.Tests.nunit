@@ -1,0 +1,7 @@
+<NUnitProject>
+  <Settings activeconfig="Release"/>
+  <Config name="Release">
+    <assembly path="Igor.Core.Tests\bin\Release\Igor.Core.Tests.dll"/>
+    <assembly path="Igor.TestRunner\bin\Release\Igor.TestRunner.exe"/>
+  </Config>
+</NUnitProject>

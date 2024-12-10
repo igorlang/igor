@@ -1,0 +1,13 @@
+module InterfaceFieldTypeMismatch
+{
+    interface BaseInterface
+    {
+        int value;
+    }
+    
+    interface DescendantInterface : BaseInterface
+    {
+        // $Expected error "Field .* has type .* which is different from .*"
+        string value;
+    }
+}

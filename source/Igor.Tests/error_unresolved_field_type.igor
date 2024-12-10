@@ -1,0 +1,7 @@
+module UnresolvedFieldType
+{
+    record TestRecord
+    {
+        Icon icon; // $Expected error "Unresolved reference"
+    }
+}

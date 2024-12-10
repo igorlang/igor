@@ -1,0 +1,7 @@
+module BrokenVariants
+{
+    // $Expected error "tag field is required"
+    variant VariantWithoutTag
+    {
+    }
+}

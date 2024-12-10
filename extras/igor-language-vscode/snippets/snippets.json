@@ -1,0 +1,25 @@
+{
+    "moduleDeclaration": {
+        "prefix": "module",
+        "body": "module $1\n{\n\t$0\n}\n",
+        "description": "Module declaration"
+    },
+
+    "recordDeclaration": {
+        "prefix": "record",
+        "body": "record $1\n{\n\t$0\n}\n",
+        "description": "Record declaration"
+    },
+
+    "exceptionDeclaration": {
+        "prefix": "exception",
+        "body": "exception $1\n{\n\t$0\n}\n",
+        "description": "Exception declaration"
+    },
+
+    "variantDeclaration": {
+        "prefix": "variant",
+        "body": "enum ${1:Variant}Type\n{\n\t${0:type1};\n}\n\nvariant $1\n{\n\ttag $1Type type;\n}\n\nrecord $1.${1}1[${0:type1}]\n{\n\t\n}\n\n",
+        "description": "Variant declaration"
+    }
+}

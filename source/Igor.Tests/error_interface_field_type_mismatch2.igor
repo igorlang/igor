@@ -1,0 +1,17 @@
+module InterfaceFieldTypeMismatch2
+{
+    interface BaseInterface1
+    {
+        int value;
+    }
+    
+    interface BaseInterface2
+    {
+        string value;
+    }
+    
+    // $Expected error "has type .* which is different"
+    interface DescendantInterface : BaseInterface1, BaseInterface2
+    {
+    }
+}

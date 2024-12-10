@@ -1,0 +1,16 @@
+module BrokenVariants
+{
+    variant CircularVariant1.CircularVariant2
+    {
+    }
+ 
+    // $Expected error "Circular variant dependency" 
+    variant CircularVariant2.CircularVariant1
+    {
+    }
+    
+    // $Expected error "Circular variant dependency" 
+    variant CircularVariant.CircularVariant
+    {
+    }
+ }

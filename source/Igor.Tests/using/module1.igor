@@ -1,0 +1,11 @@
+using Module2;
+
+module Module1
+{
+    define IntAlias int;
+    
+    record TestRecord2
+    {
+        TestRecord rec;
+    }
+}

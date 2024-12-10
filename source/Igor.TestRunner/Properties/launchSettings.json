@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Igor.TestRunner": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\tools\\igor\\source\\Igor.Tests"
+    }
+  }
+}

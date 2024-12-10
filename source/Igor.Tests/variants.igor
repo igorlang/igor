@@ -1,0 +1,38 @@
+module VariantSamples
+{
+    enum Category
+    {
+        weapon;
+        shield;
+        character;
+    }
+    
+    variant Card 
+    {
+        tag Category category;
+        string name;
+    }
+    
+    variant Card.CardItem
+    {
+        int price;
+    }
+    
+    record CardItem.CardWeapon[weapon]
+    {
+        int damage;
+    }
+    
+    record Card.CardCharacter[character]
+    {
+        float speed;
+    }
+    
+    record TestRecord
+    {
+        Card card;
+        CardItem item;
+        CardWeapon weapon;
+        CardCharacter character;
+    }
+}

@@ -1,0 +1,27 @@
+module InvalidValueTypes
+{
+    define BoolAlias bool;
+    define IntAlias int;
+
+    enum TestEnum
+    {
+        value1;
+        value2;
+    }
+
+    record TestRecord
+    {
+        // $Expected error "Cannot convert value"
+        int int_value = true;
+        // $Expected error "Cannot convert value"
+        IntAlias int_alias_value = true;
+        // $Expected error "Cannot convert value"
+        int int_value4 = 1.1;
+        // $Expected error "Cannot convert value"
+        int int_value5 = [];
+        // $Expected error "Cannot convert value"
+        int int_value6 = value1;
+        // $Expected error "Unresolved reference"
+        TestEnum enum_value1 = value3;
+    }
+}

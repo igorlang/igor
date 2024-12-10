@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="3.6.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Igor.Core\Igor.Core.csproj" />
+    <ProjectReference Include="..\Igor.CSharp\Igor.CSharp.csproj" />
+    <ProjectReference Include="..\Igor.Elixir\Igor.Elixir.csproj" />
+    <ProjectReference Include="..\Igor.Erlang\Igor.Erlang.csproj" />
+    <ProjectReference Include="..\Igor.Go\Igor.Go.csproj" />
+    <ProjectReference Include="..\Igor.Lua\Igor.Lua.csproj" />
+    <ProjectReference Include="..\Igor.Python\Igor.Python.csproj" />
+    <ProjectReference Include="..\Igor.Schema\Igor.Schema.csproj" />
+    <ProjectReference Include="..\Igor.Sql\Igor.Sql.csproj" />
+    <ProjectReference Include="..\Igor.TypeScript\Igor.TypeScript.csproj" />
+    <ProjectReference Include="..\Igor.UE4\Igor.UE4.csproj" />
+    <ProjectReference Include="..\Igor.Xsd\Igor.Xsd.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+</Project>

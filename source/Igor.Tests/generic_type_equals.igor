@@ -1,0 +1,18 @@
+module GenericTypeEquals
+{
+    interface BaseInterface1
+    {
+        list<int> value;
+        list<dict<string, ?bool>> value2;
+    }
+    
+    interface BaseInterface2
+    {
+        list<int> value;
+        list<dict<string, ?bool>> value2;
+    }
+    
+    interface DescendantInterface : BaseInterface1, BaseInterface2
+    {
+    }
+}

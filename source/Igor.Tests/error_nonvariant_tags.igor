@@ -1,0 +1,25 @@
+module NonVariantTags
+{
+    // $Expected error "Tag value is not allowed in non variant record"
+    record RecordWithTag[tag]
+    {
+    }
+    
+    record RecordWithTagField
+    {
+        // $Expected error "Tag fields are not allowed in records"
+        tag int field;
+    }
+    
+    interface InterfaceWithTagField
+    {
+        // $Expected error "Tag fields are not allowed in interfaces"
+        tag int field;
+    }
+    
+    exception ExceptionWithTagField
+    {
+        // $Expected error "Tag fields are not allowed"
+        tag int field;
+    }
+}

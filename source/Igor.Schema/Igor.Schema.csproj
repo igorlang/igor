@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Artplant.Json" Version="1.1.0-alpha1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Igor.Core\Igor.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Ast\AST.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AST.cs</LastGenOutput>
+    </None>
+    <None Update="Ast\SchemaMapper.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SchemaMapper.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Ast\AST.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AST.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Ast\SchemaMapper.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SchemaMapper.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,8 @@
+module GenericAliasSample
+{
+    define IntAlias int;
+
+    define GenericAliasWithUnusedArg<T> string;
+    
+    define GenericAlias1<T> list<T>;
+}

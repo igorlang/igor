@@ -1,0 +1,18 @@
+module error_numeric_constants
+{
+    enum TestEnum
+    {
+        // $Expected error "Invalid integral constant"
+        error = 100000000000000000000000000000;
+    }
+
+    record TestRecord
+    {
+        // $Expected error "Invalid integral constant"
+        int int_value = 100000000000000000000000000000;
+        float float_value = -10000000000000000000000000000000000000000000000000000.45;
+        
+        // $Expected error "value .* is outside of .* range"
+        byte byte_value = -1;
+    }
+}

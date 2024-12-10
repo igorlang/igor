@@ -1,0 +1,20 @@
+module BrokenVariants
+{
+    enum VariantType
+    {
+        tag1;
+        tag2;
+    }
+
+    variant Variant
+    {
+        tag VariantType type;
+    }
+    
+    // $Expected error "has more than one tag"
+    variant VariantWithTwoTags
+    {
+        tag VariantType tag1;
+        tag VariantType tag2;
+    }
+}

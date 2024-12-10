@@ -1,0 +1,12 @@
+using Module1;
+using Module2;
+
+module Module3
+{
+    record TestRecord3
+    {
+        int test;
+        IntAlias val1;
+        SecondAlias val2;
+    }
+}

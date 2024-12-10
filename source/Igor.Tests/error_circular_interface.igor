@@ -1,0 +1,17 @@
+module error_circular_interface
+{
+    interface IItem : IContainer
+    {
+        int int_value = 5;
+    }
+    
+    // $Expected error "Circular interface dependency"
+    interface IContainer : IItem
+    {
+    }
+    
+    // $Expected error "Circular interface dependency"
+    interface ISelf : ISelf
+    {
+    }
+}

@@ -1,0 +1,11 @@
+module InterfaceSample
+{
+    interface IItem
+    {
+    }
+    
+    interface IContainer : IItem
+    {
+        int int_value = 5;
+    }
+}

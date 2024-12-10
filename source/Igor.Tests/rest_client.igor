@@ -1,0 +1,24 @@
+[csharp namespace="ChuckNorris" json.enabled]
+module ChuckNorris
+{
+    record Joke
+    {
+        string icon_url;
+        string id;
+        string url;
+        string value;
+    }
+
+    record SearchResults
+    {
+        int total;
+        list<Joke> result;
+    }
+    
+    webservice ChuckNorrisApi
+    {
+        GetRandomJoke => GET /jokes/random -> Joke;
+        GetCategories => GET /jokes/categories -> list<string>;
+        Search => GET /jokes/search?query={string query} -> SearchResults;
+    }
+}

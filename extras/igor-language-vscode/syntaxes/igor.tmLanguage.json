@@ -1,0 +1,1311 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Igor",
+	"patterns": [
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#attribute-section"
+		},
+		{
+			"include": "#using"
+		},
+		{
+			"include": "#module-declaration"
+		}
+	],
+	"repository": {
+		"using": {
+			"begin": "\\b(using)\\b",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.using.igor"
+				}
+			},
+			"end": "(?=;)",
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"name": "entity.name.section.igor",
+					"match": "[_[:alpha:]][_[:alnum:]]*"
+				}
+			]
+		},
+		"module-declaration": {
+			"begin": "\\b(module)\\b",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.module.igor"
+				}
+			},
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"name": "entity.name.section.igor",
+					"match": "[_[:alpha:]][_[:alnum:]]*"
+				},
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.igor"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#attribute-section"
+						},
+						{
+							"include": "#declarations"
+						}
+					]
+				}
+			]
+		},
+		"declarations": {
+			"patterns": [
+				{
+					"include": "#enum-declaration"
+				},
+				{
+					"include": "#record-declaration"
+				},
+				{
+					"include": "#define-declaration"
+				},
+				{
+					"include": "#interface-declaration"
+				},
+				{
+					"include": "#variant-declaration"
+				},
+				{
+					"include": "#exception-declaration"
+				},
+				{
+					"include": "#union-declaration"
+				},
+				{
+					"include": "#service-declaration"
+				},
+				{
+					"include": "#webservice-declaration"
+				}
+			]
+		},
+		"enum-declaration": {
+			"begin": "(?=\\benum\\b)",
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"begin": "(?=enum)",
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"match": "(enum)\\s+([_[:alpha:]][_[:alnum:]]*)",
+							"captures": {
+								"1": {
+									"name": "keyword.other.enum.igor"
+								},
+								"2": {
+									"name": "entity.name.type.enum.igor"
+								}
+							}
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.igor"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#attribute-section"
+						},
+						{
+							"include": "#punctuation-semicolon"
+						},
+						{
+							"begin": "[_[:alpha:]][_[:alnum:]]*",
+							"beginCaptures": {
+								"0": {
+									"name": "entity.name.variable.enum-member.igor"
+								}
+							},
+							"end": "(?=(;|\\}))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#default-value"
+								}
+							]
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"define-declaration": {
+			"begin": "(?=\\bdefine\\b)",
+			"end": "(?<=;)",
+			"patterns": [
+				{
+					"begin": "(define)\\b\\s+([_[:alpha:]][_[:alnum:]]*)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.define.igor"
+						},
+						"2": {
+							"name": "entity.name.type.define.igor"
+						},
+						"3": {
+							"name": "entity.name.type.define.igor"
+						}
+					},
+					"end": "(?=;)",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#type-parameter-list"
+						},
+						{
+							"include": "#type"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"record-declaration": {
+			"begin": "(?=\\brecord\\b)",
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"begin": "(?x)\n(record)\\b\\s+\n([_[:alpha:]][_[:alnum:]]*)\\s*\\.\\s*([_[:alpha:]][_[:alnum:]]*)\\s*",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.record.igor"
+						},
+						"2": {
+							"name": "support.type.alias.igor"
+						},
+						"3": {
+							"name": "entity.name.type.record.igor"
+						}
+					},
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#type-parameter-list"
+						},
+						{
+							"include": "#interface-list"
+						},
+						{
+							"begin": "(?=\\[)",
+							"beginCaptures": {
+								"1": {
+									"name": "punctuation.squarebracket.open.cs"
+								}
+							},								
+							"end": "(?=\\])",
+							"endCaptures": {
+								"1": {
+									"name": "punctuation.squarebracket.close.cs"
+								}
+							},							
+							"patterns": [
+								{
+									"include": "#identifier"
+								}
+							]
+
+						}
+					]
+				},
+				{
+					"begin": "(?x)\n(record)\\b\\s+\n([_[:alpha:]][_[:alnum:]]*)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.record.igor"
+						},
+						"2": {
+							"name": "entity.name.type.record.igor"
+						}
+					},
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#type-parameter-list"
+						},
+						{
+							"include": "#interface-list"
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.igor"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#struct-fields"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"variant-declaration": {
+			"begin": "(?=\\bvariant\\b)",
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"begin": "(?x)\n(variant)\\b\\s+\n([_[:alpha:]][_[:alnum:]]*)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.variant.igor"
+						},
+						"2": {
+							"name": "entity.name.type.variant.igor"
+						}
+					},
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#interface-list"
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.igor"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#struct-fields"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"exception-declaration": {
+			"begin": "(?=\\bexception\\b)",
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"begin": "(?x)\n(exception)\\b\\s+\n([_[:alpha:]][_[:alnum:]]*)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.exception.igor"
+						},
+						"2": {
+							"name": "entity.name.type.exception.igor"
+						}
+					},
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#type-parameter-list"
+						},
+						{
+							"include": "#interface-list"
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.igor"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#struct-fields"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"struct-fields": {
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#attribute-section"
+				},
+				{
+					"include": "#field-declaration"
+				},
+				{
+					"include": "#punctuation-semicolon"
+				}
+			]
+		},
+		"union-declaration": {
+			"begin": "(?=\\bunion\\b)",
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"begin": "(?x)\n(union)\\b\\s+\n([_[:alpha:]][_[:alnum:]]*)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.union.igor"
+						},
+						"2": {
+							"name": "entity.name.type.union.igor"
+						}
+					},
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#type-parameter-list"
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.igor"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#attribute-section"
+						},
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#union-clause"
+						},
+						{
+							"include": "#punctuation-semicolon"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"union-clause": {
+			"begin": "[_[:alpha:]][_[:alnum:]]*",
+			"beginCaptures": {
+				"0": {
+					"name": "entity.name.tag.union-clause.igor"
+				}
+			},
+			"end": "(?=;)",
+			"patterns": [
+				{
+					"begin": "(?<!=|!)(=>)(?!=|>)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.arrow.igor"
+						}
+					},
+					"end": "(?=[,\\)\\];}])",
+					"patterns": [
+						{
+							"include": "#type"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"field-declaration": {
+			"begin": "(?x)\n(tag\\s+)?(?<type-name>\n  (?:\n    (?:\n      (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification\n      (?<name-and-type-args> # identifier + type arguments (if any)\n        \\g<identifier>\\s*\n        (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?\n      )\n      (?:\\s*\\.\\s*\\g<name-and-type-args>)* | # Are there any more names being dotted into?\n      (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))\n    )\n    (?:\\s*\\?\\s*)? # nullable suffix?\n    (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?\n  )\n)\\s+\n(\\g<identifier>)\\s* # first field name\n(?!=>|==)(?=,|;|=|$)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.tag.igor"
+				},
+				"2": {
+					"patterns": [
+						{
+							"include": "#type"
+						}
+					]
+				},
+				"7": {
+					"name": "entity.name.variable.field.igor"
+				}
+			},
+			"end": "(?=;)",
+			"patterns": [
+				{
+					"name": "entity.name.variable.field.igor",
+					"match": "[_[:alpha:]][_[:alnum:]]*"
+				},
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#default-value"
+				}
+			]
+		},
+		"interface-declaration": {
+			"begin": "(?=\\binterface\\b)",
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"begin": "(?x)\n(interface)\\b\\s+\n([_[:alpha:]][_[:alnum:]]*)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.interface.igor"
+						},
+						"2": {
+							"name": "entity.name.type.interface.igor"
+						}
+					},
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#interface-list"
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.igor"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#struct-fields"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"interface-list": {
+			"begin": ":",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.separator.colon.igor"
+				}
+			},
+			"end": "(?=\\{)",
+			"patterns": [
+				{
+					"include": "#type-name"
+				},
+				{
+					"include": "#punctuation-comma"
+				}
+			]
+		},
+		"throw-list": {
+			"begin": "(\\bthrows\\b)",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.control.throws.igor"
+				}
+			},
+			"end": "(?=\\;)",
+			"patterns": [
+				{
+					"include": "#type-name"
+				},
+				{
+					"include": "#punctuation-comma"
+				}
+			]
+		},
+		"service-declaration": {
+			"begin": "(?=\\bservice\\b)",
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"begin": "(?x)\n(service)\\b\\s+\n([_[:alpha:]][_[:alnum:]]*)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.service.igor"
+						},
+						"2": {
+							"name": "entity.name.type.service.igor"
+						}
+					},
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"include": "#comment"
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.igor"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#attribute-section"
+						},
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#service-function"
+						},
+						{
+							"include": "#punctuation-semicolon"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"service-variable": {
+			"begin": "(?x)\n(?<type-name>\n  (?:\n    (?:\n      (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification\n      (?<name-and-type-args> # identifier + type arguments (if any)\n        \\g<identifier>\\s*\n        (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?\n      )\n      (?:\\s*\\.\\s*\\g<name-and-type-args>)* | # Are there any more names being dotted into?\n      (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))\n    )\n    (?:\\s*\\?\\s*)? # nullable suffix?\n    (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?\n  )\n)\\s+\n(\\g<identifier>)\\s* # first field name\n(?!=>|==)(?=,|\\)|=|$)",
+			"beginCaptures": {
+				"1": {
+					"patterns": [
+						{
+							"include": "#type"
+						}
+					]
+				},
+				"6": {
+					"name": "entity.name.variable.service.igor"
+				}
+			},
+			"end": "(?=,|\\))",
+			"patterns": [
+				{
+					"name": "entity.name.variable.service.igor",
+					"match": "[_[:alpha:]][_[:alnum:]]*"
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"service-function": {
+			"begin": "(?<!\\.)(c->s|s->c)\\b\\s*([_[:alpha:]][_[:alnum:]]*)\\b",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.direction.igor"
+				},
+				"2": {
+					"name": "entity.name.function.service.igor"
+				}
+			},
+			"end": "(?=;)",
+			"patterns": [
+				{
+					"name": "keyword.control.returns.igor",
+					"match": "\\breturns\\b"
+				},
+				{
+					"include": "#throw-list"
+				},
+				{
+					"begin": "\\(",
+					"end": "\\)",
+					"patterns": [
+						{
+							"include": "#punctuation-comma"
+						},
+						{
+							"include": "#service-variable"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"webservice-declaration": {
+			"begin": "(?=\\bwebservice\\b)",
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"begin": "(?x)\n(webservice)\\b\\s+\n([_[:alpha:]][_[:alnum:]]*)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.webservice.igor"
+						},
+						"2": {
+							"name": "entity.name.type.webservice.igor"
+						}
+					},
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"include": "#comment"
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.igor"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#web-resource"
+						},
+						{
+							"include": "#attribute-section"
+						}
+					]
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"web-variable": {
+			"begin": "(?x)\n(?<type-name>\n  (?:\n    (?:\n      (?:(?<identifier>[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? # alias-qualification\n      (?<name-and-type-args> # identifier + type arguments (if any)\n        \\g<identifier>\\s*\n        (?<type-args>\\s*<(?:[^<>]|\\g<type-args>)+>\\s*)?\n      )\n      (?:\\s*\\.\\s*\\g<name-and-type-args>)* | # Are there any more names being dotted into?\n      (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))\n    )\n    (?:\\s*\\?\\s*)? # nullable suffix?\n    (?:\\s*\\[(?:\\s*,\\s*)*\\]\\s*)* # array suffix?\n  )\n)\\s+\n(\\g<identifier>)\\s* # first field name\n(?!=>|==)(?=,|}|=|$)",
+			"beginCaptures": {
+				"1": {
+					"patterns": [
+						{
+							"include": "#type"
+						}
+					]
+				},
+				"6": {
+					"name": "entity.name.variable.web.igor"
+				}
+			},
+			"end": "(?=})",
+			"patterns": [
+				{
+					"name": "entity.name.variable.web.igor",
+					"match": "[_[:alpha:]][_[:alnum:]]*"
+				},
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#default-value"
+				}
+			]
+		},
+		"web-resource": {
+			"begin": "(?<!\\.)([_[:alpha:]][_[:alnum:]]*)\\b\\s*(=>)\\s*\\b(GET|POST|PUT|DELETE|PATCH)\\b",
+			"beginCaptures": {
+				"1": {
+					"name": "entity.name.function.webresource.igor"
+				},
+				"2": {
+					"name": "keyword.operator.arrow.igor"
+				},
+				"3": {
+					"name": "keyword.other.web-verb.igor"
+				}
+			},
+			"end": "(?=;)",
+			"patterns": [
+				{
+					"match": "(?<!\\.)(\\/[[:alnum:]\\-_.!$()*+,;:@]+)",
+					"captures": {
+						"1": {
+							"name": "string.unquoted.web-part.igor"
+						}
+					}
+				},
+				{
+					"begin": "(?<!\\.)(\\/)\\s*\\{",
+					"end": "(?=})",
+					"beginCaptures": {
+						"1": {
+							"name": "string.unquoted.web-part.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#attribute-section"
+						},
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#web-variable"
+						}
+					]
+				},
+				{
+					"match": "(?<!\\.)([\\?&]\\s*[[:alnum:]\\-_.!$()*+,;:@]+\\s*=s*[[:alnum:]\\-_.!$()*+,;:@]+)",
+					"captures": {
+						"1": {
+							"name": "string.unquoted.http.path.igor"
+						}
+					}
+				},
+				{
+					"begin": "(?<!\\.)([\\?&]\\s*[[:alnum:]\\-_.!$()*+,;:@]+\\s*=s*){",
+					"end": "(?=})",
+					"beginCaptures": {
+						"1": {
+							"name": "string.unquoted.http.query.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#attribute-section"
+						},
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#web-variable"
+						}
+					]
+				},
+				{
+					"begin": "(?<!\\.)(~\\s*[[:alnum:]\\-]+\\s*:\\s*){",
+					"end": "(?=})",
+					"beginCaptures": {
+						"1": {
+							"name": "string.unquoted.http.header.igor"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#attribute-section"
+						},
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#web-variable"
+						}
+					]
+				},
+				{
+					"match": "(?<!\\.)(~\\s*[[:alnum:]\\-]+\\s*:\\s*)(\"(?:[^\"\\\\]|\\\\.)*\")",
+					"captures": {
+						"1": {
+							"name": "string.unquoted.http.header-value.igor"
+						},
+						"2": {
+							"patterns": [
+								{
+									"include": "#string-literal"
+								}
+							]
+
+						}
+					}
+				},
+				{
+					"match": "(?<!\\.)([0-9]{3,3})\\s+([^,;:]+)[,;:]",
+					"captures": {
+						"1": {
+							"name": "constant.numeric.http.status.igor"
+						},
+						"2": {
+							"name": "string.unquoted.http.status.igor"
+						}
+					}
+				},
+				{
+					"match": "(?<!\\.)([0-9]{3,3})\\s*[,;:]",
+					"captures": {
+						"1": {
+							"name": "constant.numeric.http.status.igor"
+						},
+						"2": {
+							"name": "string.unquoted.http.status.igor"
+						}
+					}
+				},
+				{
+					"include": "#type"
+				},
+				{
+					"include": "#comment"
+				}
+			]
+		},
+		"type-parameter-list": {
+			"begin": "\\<",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.typeparameters.begin.cs"
+				}
+			},
+			"end": "\\>",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.typeparameters.end.cs"
+				}
+			},
+			"patterns": [
+				{
+					"match": "([_[:alpha:]][_[:alnum:]]*)\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.type-parameter.cs"
+						}
+					}
+				},
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#punctuation-comma"
+				}
+			]
+		},
+		"type": {
+			"name": "meta.type.igor",
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#type-builtin"
+				},
+				{
+					"include": "#type-name"
+				},
+				{
+					"include": "#type-arguments"
+				}
+			]
+		},
+		"type-builtin": {
+			"patterns": [
+				{
+					"match": "\\b(atom|binary|bool|int8|uint8|int16|uint16|int32|uint32|int64|uint64|byte|float32|float64|double|float|int|long|sbyte|short|string|uint|ulong|ushort|list|dict|flags|json)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.type.igor"
+						}
+					}
+				}
+			]
+		},
+		"type-name": {
+			"patterns": [
+				{
+					"name": "support.type.alias.igor",
+					"match": "[_[:alpha:]][_[:alnum:]]*"
+				}
+			]
+		},
+		"type-arguments": {
+			"begin": "<",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.typeparameters.begin.igor"
+				}
+			},
+			"end": ">",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.typeparameters.end.igor"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#type"
+				},
+				{
+					"include": "#punctuation-comma"
+				}
+			]
+		},
+		"default-value": {
+			"begin": "(?<!=|!)(=)(?!=|>)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.operator.assignment.igor"
+				}
+			},
+			"end": "(?=[,\\)\\];}])",
+			"patterns": [
+				{
+					"include": "#value"
+				}
+			]
+		},
+		"value": {
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#literal"
+				},
+				{
+					"include": "#identifier"
+				}
+			]
+		},
+		"identifier": {
+			"patterns": [
+				{
+					"name": "variable.other.readwrite.igor",
+					"match": "[_[:alpha:]][_[:alnum:]]*"
+				}
+			]
+		},
+		"literal": {
+			"patterns": [
+				{
+					"include": "#boolean-literal"
+				},
+				{
+					"include": "#numeric-literal"
+				},
+				{
+					"include": "#string-literal"
+				}
+			]
+		},
+		"boolean-literal": {
+			"patterns": [
+				{
+					"name": "constant.language.boolean.true.igor",
+					"match": "(?<!\\.)\\btrue\\b"
+				},
+				{
+					"name": "constant.language.boolean.false.igor",
+					"match": "(?<!\\.)\\bfalse\\b"
+				}
+			]
+		},
+		"numeric-literal": {
+			"patterns": [
+				{
+					"name": "constant.numeric.decimal.igor",
+					"match": "\\b([0-9_]+)?\\.[0-9_]+((e|E)[0-9]+)?(F|f|D|d|M|m)?\\b"
+				},
+				{
+					"name": "constant.numeric.decimal.igor",
+					"match": "\\b[0-9_]+(e|E)[0-9_]+(F|f|D|d|M|m)?\\b"
+				},
+				{
+					"name": "constant.numeric.decimal.igor",
+					"match": "\\b[0-9_]+(F|f|D|d|M|m)\\b"
+				},
+				{
+					"name": "constant.numeric.decimal.igor",
+					"match": "\\b[0-9_]+(U|u|L|l|UL|Ul|uL|ul|LU|Lu|lU|lu)?\\b"
+				}
+			]
+		},
+		"string-literal": {
+			"name": "string.quoted.double.igor",
+			"begin": "\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.igor"
+				}
+			},
+			"end": "(\")|((?:[^\\\\\\n])$)",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.string.end.igor"
+				},
+				"2": {
+					"name": "invalid.illegal.newline.igor"
+				}
+			},
+			"patterns": [
+				{
+					"name": "constant.character.escape.igor",
+					"match": "\\\\.",
+					"patterns": []
+				}
+			]
+		},
+		"punctuation-comma": {
+			"name": "punctuation.separator.comma.igor",
+			"match": ",",
+			"patterns": []
+		},
+		"punctuation-semicolon": {
+			"name": "punctuation.terminator.statement.igor",
+			"match": ";",
+			"patterns": []
+		},
+		"operator-assignment": {
+			"name": "keyword.operator.assignment.igor",
+			"match": "(?<!=|!)(=)(?!=)",
+			"patterns": []
+		},
+		"attribute-section": {
+			"patterns": [
+				{
+					"include": "#attribute-block"
+				},
+				{
+					"include": "#annotation"
+				}
+			]
+		},
+		"attribute-block": {
+			"name": "meta.attribute.igor",
+			"begin": "(\\[)(csharp|erlang|schema|diagram_schema|ue4|go|lua|xsd|sql|ts|\\*)?",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.squarebracket.open.igor"
+				},
+				"2": {
+					"name": "keyword.other.attribute-target.igor"
+				}
+			},
+			"end": "(\\])",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.squarebracket.close.igor"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#attribute"
+				}
+			]
+		},
+		"attribute": {
+			"patterns": [
+				{
+					"begin": "([[:alpha:]][_[:alnum:]\\.]*)\\s*(?==\\s*)",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.other.attribute-name.igor"
+						}
+					},
+					"end": "(?=(\\s|\\]))",
+					"patterns": [
+						{
+							"include": "#operator-assignment"
+						},
+						{
+							"include": "#attribute-value"
+						}
+					]
+				},
+				{
+					"match": "([[:alpha:]][_[:alnum:]\\.]*)\\s*",
+					"name": "entity.other.attribute-name.igor"
+				}
+			]
+		},
+		"attribute-value": {
+			"patterns": [
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#literal"
+				},
+				{
+					"include": "#identifier"
+				}
+			]
+		},
+		"annotation": {
+			"patterns": [
+				{
+					"name": "comment.block.documentation.igor",
+					"begin": "<#",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.annotation.igor"
+						}
+					},
+					"end": "#>",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.annotation.igor"
+						}
+					}
+				},
+				{
+					"name": "comment.block.documentation.igor",
+					"begin": "(^\\s+)?(?=#)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.whitespace.annotation.igor"
+						}
+					},
+					"end": "(?=$)",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.annotation.igor"
+						}
+					}
+				}
+			]
+		},
+		"comment": {
+			"patterns": [
+				{
+					"name": "comment.block.igor",
+					"begin": "/\\*",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.igor"
+						}
+					},
+					"end": "\\*/",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.igor"
+						}
+					}
+				},
+				{
+					"name": "comment.line.double-slash.igor",
+					"begin": "(^\\s+)?(?=//)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.whitespace.comment.leading.igor"
+						}
+					},
+					"end": "(?=$)",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.igor"
+						}
+					}
+				}
+			]
+		}
+	},
+	"scopeName": "source.igor"
+}

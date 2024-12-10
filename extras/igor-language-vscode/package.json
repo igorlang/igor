@@ -1,0 +1,32 @@
+{
+    "name": "igor-language",
+    "displayName": "Igor Language",
+    "description": "Igor Language Support",
+    "version": "0.0.1",
+    "publisher": "Artplant",
+    "engines": {
+        "vscode": "^1.24.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "igor",
+            "aliases": ["Igor", "igor"],
+            "extensions": [".igor"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "igor",
+            "scopeName": "source.igor",
+            "path": "./syntaxes/igor.tmLanguage.json"
+        }],
+        "snippets": [
+            {
+                "language": "igor",
+                "path": "./snippets/snippets.json"
+            }
+        ]        
+    }
+}

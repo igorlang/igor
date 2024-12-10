@@ -1,0 +1,13 @@
+// $Expect that @Annotations.Annotation = "module annotation"
+# module annotation
+module Annotations
+{
+    <# this
+    is 
+    a block
+    annotation #>
+    // $Expect that @BlockAnnotationRecord.Annotation = "this is a block annotation"
+    record BlockAnnotationRecord
+    {
+    }
+}

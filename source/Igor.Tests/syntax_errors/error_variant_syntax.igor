@@ -1,0 +1,8 @@
+module BrokenVariants
+{
+    // $Expected error "expected: identifier"
+    variant .NoAncestor
+    {
+        tag int tagfield;
+    }
+}

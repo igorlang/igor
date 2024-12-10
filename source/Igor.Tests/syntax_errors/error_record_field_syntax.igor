@@ -1,0 +1,19 @@
+module RecordSyntaxFieldError
+{
+    record Record1
+    {
+        // $Expected error "Expected: .*" 
+        ;
+    }
+
+    record Record2
+    {
+        // $Expected error "Expected: .*"
+        float ;
+    }
+
+    record Record3
+    {
+        int value = 5  // $Expected error "Expected: ';'"
+    }
+}

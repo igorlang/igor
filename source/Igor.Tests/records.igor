@@ -1,0 +1,37 @@
+module protocol_enums
+{
+    enum TestEnum
+    {  
+        first = 1;
+        third = 3;
+        last;
+    }
+
+    interface TestInterface
+    {
+        TestEnum enum_value = first;
+        int int_value = 5;
+    }
+    
+    enum TestType
+    {
+        tag1;
+        tag2;
+    }
+    
+    variant TestVariant
+    {
+        tag TestType type;
+    }
+    
+    record TestVariant.TestChild1[tag1] : TestInterface
+    {
+        string string_value = "hello";
+        int int_value = 3;
+   }
+    
+    record TestVariant.TestChild2[tag2]
+    {
+        string string_value2;
+    }
+}

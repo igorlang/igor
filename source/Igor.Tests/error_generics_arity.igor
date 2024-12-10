@@ -1,0 +1,30 @@
+module ErrorGenericsArity
+{
+    // $Expected error "Empty type parameter list"
+    record GenericRecord0<>
+    {
+    }
+    
+    record GenericRecord1<T>
+    {
+        T value;
+    }
+
+    record Record0
+    {
+    }
+
+    record GenericRecord1User
+    {
+        // $Expected error "Generic type 'GenericRecord1' requires 1 type argument"
+        GenericRecord1<int, int> value1;
+
+        // $Expected error "Generic type 'GenericRecord1' requires 1 type argument"
+        GenericRecord1 value2;
+
+        GenericRecord0 value3;
+
+        // $Expected error "Non-generic type 'Record0' cannot be used with type arguments"
+        Record0<int> value4;
+    }
+}

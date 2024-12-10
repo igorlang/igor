@@ -1,0 +1,15 @@
+bin
+obj
+/bin
+*.suo
+*.user
+*.beam
+*.app
+_N_GeneratedSource_*.n
+/IgorLanguageVsPackage
+packages
+*.tmp
+.vs
+.vscode
+/igor-core-nunit-result.xml
+roslyn

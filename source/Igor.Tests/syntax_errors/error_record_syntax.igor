@@ -1,0 +1,8 @@
+module RecordSyntaxError
+{
+    // $Expected error "expected: identifier"
+    record { }
+
+    // $Expected error "expected: .*"
+    record RecordMissingBrace }
+}

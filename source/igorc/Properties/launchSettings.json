@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "igorc": {
+      "commandName": "Project",
+      "commandLineArgs": "-v -t ts -o TypeScript\\WebSample\\generated TypeScript\\WebSample\\igor\\*.igor",
+      "workingDirectory": "..\\..\\"
+    }
+  }
+}
