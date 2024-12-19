@@ -52,6 +52,7 @@ namespace Igor.CSharp
         public static readonly EnumAttributeDescriptor<DictTypeImplementation> DictImplementation = new EnumAttributeDescriptor<DictTypeImplementation>("dict_implementation", IgorAttributeTargets.Any, AttributeInheritance.Scope);
         public static readonly StringAttributeDescriptor TargetFramework = new StringAttributeDescriptor("target_framework", IgorAttributeTargets.Any, AttributeInheritance.Scope);
         public static readonly BoolAttributeDescriptor Tpl = new BoolAttributeDescriptor("tpl", IgorAttributeTargets.Any, AttributeInheritance.Scope);
+        public static readonly BoolAttributeDescriptor JsonTest = new BoolAttributeDescriptor("json.test", IgorAttributeTargets.Any, AttributeInheritance.Scope);
 
         public static IReadOnlyList<AttributeDescriptor> AllAttributes { get; }
 

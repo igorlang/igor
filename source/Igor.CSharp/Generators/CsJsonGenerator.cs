@@ -65,7 +65,8 @@ $@"public {csTypeName} Deserialize(Json.ImmutableJson json)
 }}
 ");
 
-            c.Method(
+            if (enumForm.csJsonTestEnabled)
+                c.Method(
 $@"public bool Test(Json.ImmutableJson json)
 {{
     if (json == null)
@@ -227,7 +228,8 @@ public void Deserialize(Json.ImmutableJson json, {refKeyword} {csTypeName} value
 ");
                 }
 
-                c.Method(
+                if (structForm.csJsonTestEnabled)
+                    c.Method(
     $@"public bool Test(Json.ImmutableJson json)
 {{
     if (json == null)
@@ -286,7 +288,8 @@ $@"public static readonly {structForm.csJsonGeneratedSerializerClass} Instance =
 }}
 ");
 
-            c.Method(
+            if (variantForm.csJsonTestEnabled)
+                c.Method(
 $@"public bool Test(Json.ImmutableJson json)
 {{
     if (json == null)

@@ -36,6 +36,7 @@ namespace Igor.CSharp.AST
 
     public partial class TypeForm
     {
+        public bool csJsonTestEnabled => Attribute(CsAttributes.JsonTest, false);
         public string csFullTypeName => csAlias ?? CsName.Combine(csNamespace, csName);
         public bool csGenerateDeclaration => (csEnabled && csAlias == null);
         public abstract CsType csType { get; }
