@@ -2,6 +2,12 @@ name: Release Igor
 
 on:
   workflow_dispatch:
+    inputs:
+      prerelease:
+        description: 'Pre-release'
+        required: true
+        default: true
+        type: boolean
 
 jobs:
 
