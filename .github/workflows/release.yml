@@ -1,4 +1,4 @@
-name: Build
+name: Release Igor
 
 on:
   workflow_dispatch:
@@ -40,5 +40,11 @@ jobs:
       shell: bash
 
     - name: Sign Executables
-      run: smctl sign --fingerprint ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} --input bin\\igorc.exe --tool signtool
+      run: smctl sign --fingerprint ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} --input bin\igorc.exe --tool signtool
 
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        prerelease: ${{ inputs.prerelease }}
+        files: bin\igorc.exe
