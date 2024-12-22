@@ -9,6 +9,10 @@ jobs:
 
     runs-on: windows-2019
 
+    env:
+      SM_CLIENT_CERT_FILE: Certificate_pkcs12.p12
+      SM_HOST: ${{ secrets.SM_HOST }}
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -24,3 +28,17 @@ jobs:
 
     - name: Build solution
       run: msbuild source\Igor.sln -t:rebuild -property:Configuration=Release
+
+    - name: Code signing with Software Trust Manager
+      uses: digicert/ssm-code-signing@v1.0.0
+
+    - name: Set up certificate 
+      run: | 
+        echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | base64 --decode > ${{ env.SM_CLIENT_CERT_FILE }}
+        smctl credentials save ${{ secrets.SM_API_KEY }} ${{ secrets.SM_CLIENT_CERT_PASSWORD }}
+        smctl windows certsync --keypair-alias="${{ secrets.SM_KEYPAIR_ALIAS }}"
+      shell: bash
+
+    - name: Sign Executables
+      run: smctl sign --fingerprint ${{ secrets.SM_CODE_SIGNING_CERT_SHA1_HASH }} --input bin\\igorc.exe --tool signtool
+
