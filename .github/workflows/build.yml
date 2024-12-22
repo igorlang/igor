@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2.0.1
+
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Restore Packages
+      run: nuget restore source\Igor.sln
+
+    - name: Build solution
+      run: msbuild source\Igor.sln -t:rebuild -property:Configuration=Release
