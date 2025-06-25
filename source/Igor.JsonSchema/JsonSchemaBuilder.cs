@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Igor.JsonSchema.AST;
@@ -8,7 +9,8 @@ namespace Igor.JsonSchema
 {
     public class JsonSchemaBuilder
     {
-        public Dictionary<string, SchemaObject> Defs = new Dictionary<string, SchemaObject>();
+        public Dictionary<string, Lazy<SchemaObject>> Defs = new Dictionary<string, Lazy<SchemaObject>>();
+        private readonly Queue<Lazy<SchemaObject>> lazyDefs = new();
         public TypeForm RootType { get; }
 
         public JsonSchemaBuilder(TypeForm rootType)
@@ -20,8 +22,11 @@ namespace Igor.JsonSchema
         {
             var schema = TypeFormSchema(RootType);
             schema.Schema = "https://json-schema.org/draft/2020-12/schema";
-            if (Defs.Any())
-                schema.Defs = Defs;
+            while (lazyDefs.Count > 0)
+            {
+                _ = lazyDefs.Dequeue().Value;
+            }
+            schema.Defs = Defs.ToDictionary(d => d.Key, d => d.Value.Value);
             return schema;
         }
 
@@ -39,7 +44,7 @@ namespace Igor.JsonSchema
                 case BuiltInType.List list: return new SchemaObject { Type = SimpleType.Array, Items = TypeSchema(list.ItemType) };
                 case BuiltInType.Dict dict: return new SchemaObject { Type = SimpleType.Object, AdditionalProperties = TypeSchema(dict.ValueType) };
                 case BuiltInType.Flags flags: return new SchemaObject { Type = SimpleType.Array, Items = TypeSchema(flags.ItemType) };
-                case TypeForm typeForm: return EnsureDef(typeForm.Name, () => TypeFormSchema(typeForm));
+                case TypeForm typeForm: return EnsureDef(typeForm.Name, new Lazy<SchemaObject>(() => TypeFormSchema(typeForm)));
                 default: return new SchemaObject();
             }
         }
@@ -71,13 +76,14 @@ namespace Igor.JsonSchema
             }
         }
 
-        private SchemaObject EnsureDef(string typeName, Func<SchemaObject> lazySchema)
+        private SchemaObject EnsureDef(string typeName, Lazy<SchemaObject> lazySchema)
         {
             if (RootType.Name == typeName)
                 return new SchemaObject { Ref = $"#" };
             if (!Defs.ContainsKey(typeName))
             {
-                Defs.Add(typeName, lazySchema());
+                Defs.Add(typeName, lazySchema);
+                lazyDefs.Enqueue(lazySchema);
             }
             return new SchemaObject { Ref = $"#/$defs/{typeName}" };
         }

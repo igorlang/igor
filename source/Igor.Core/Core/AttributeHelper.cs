@@ -95,7 +95,7 @@ namespace Igor
                 case AttributeInheritance.Scope:
                     if (own != null)
                         return own;
-                    if (host.ScopeHost != null)
+                    if (host.ScopeHost != null && host.ScopeHost != host)
                         return GetAttributeValue(host.ScopeHost, attribute);
                     return GetEnvironmentAttributeValue(attribute);
 
