@@ -42,7 +42,7 @@ namespace Igor.JsonSchema
                 case BuiltInType.Bool _: return new SchemaObject { Type = SimpleType.Boolean};
                 case BuiltInType.Json _: return new SchemaObject { };
                 case BuiltInType.List list: return new SchemaObject { Type = SimpleType.Array, Items = TypeSchema(list.ItemType, host) };
-                case BuiltInType.Dict dict: return new SchemaObject { Type = SimpleType.Object, AdditionalProperties = TypeSchema(dict.ValueType, null) };
+                case BuiltInType.Dict dict: return new SchemaObject { Type = SimpleType.Object, PropertyNames = TypeSchema(dict.KeyType, null), AdditionalProperties = TypeSchema(dict.ValueType, null) };
                 case BuiltInType.Flags flags: return new SchemaObject { Type = SimpleType.Array, Items = TypeSchema(flags.ItemType, null) };
                 case BuiltInType.Optional optional: return TypeSchema(optional.ItemType, host);
                 case TypeForm typeForm: return EnsureDef(typeForm.Name, new Lazy<SchemaObject>(() => TypeFormSchema(typeForm)));
