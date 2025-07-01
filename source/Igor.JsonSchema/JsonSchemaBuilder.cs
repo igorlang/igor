@@ -54,7 +54,7 @@ namespace Igor.JsonSchema
         {
             var result = typeForm switch
             {
-                DefineForm defineForm => EnsureDef(typeForm.Name, new Lazy<SchemaObject>(() => TypeSchema(defineForm.Type, defineForm))),
+                DefineForm defineForm => TypeSchema(defineForm.Type, defineForm),
                 EnumForm enumForm => EnumSchema(enumForm),
                 RecordForm recordForm => RecordSchema(recordForm),
                 VariantForm variantForm => VariantSchema(variantForm),
