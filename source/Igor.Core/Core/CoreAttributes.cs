@@ -84,6 +84,11 @@ namespace Igor
         public static readonly EnumAttributeDescriptor<Notation> StringFieldNotation = new EnumAttributeDescriptor<Notation>("string.field_notation", IgorAttributeTargets.RecordField | IgorAttributeTargets.EnumField, AttributeInheritance.Scope);
         public static readonly StringAttributeDescriptor StringValue = new StringAttributeDescriptor("string.value", IgorAttributeTargets.Any);
 
+        public static readonly IntAttributeDescriptor IntMin = new IntAttributeDescriptor("min", IgorAttributeTargets.Any, AttributeInheritance.Type);
+        public static readonly IntAttributeDescriptor IntMax = new IntAttributeDescriptor("max", IgorAttributeTargets.Any, AttributeInheritance.Type);
+        public static readonly FloatAttributeDescriptor FloatMin = new FloatAttributeDescriptor("min", IgorAttributeTargets.Any, AttributeInheritance.Type);
+        public static readonly FloatAttributeDescriptor FloatMax = new FloatAttributeDescriptor("max", IgorAttributeTargets.Any, AttributeInheritance.Type);
+
         /// <summary>
         /// Returns the list of all built-in target-independent attributes
         /// </summary>

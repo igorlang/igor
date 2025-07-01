@@ -14,10 +14,6 @@ namespace Igor.Schema.AST
         public bool schemaNotEmpty => Attribute(CoreAttributes.NotEmpty, false);
         public string schemaSource => Attribute(SchemaAttributes.Source, null);
         public string schemaEditorKey => Attribute(SchemaAttributes.EditorKey, null);
-        public int? schemaIntMin => Attribute(SchemaAttributes.IntMin);
-        public int? schemaIntMax => Attribute(SchemaAttributes.IntMax);
-        public double? schemaFloatMin => Attribute(SchemaAttributes.FloatMin);
-        public double? schemaFloatMax => Attribute(SchemaAttributes.FloatMax);
         public Dictionary<string, Json.ImmutableJson> schemaMeta => ListAttribute(SchemaAttributes.Meta)
             .SelectMany(meta => meta)
             .GroupBy(pair => pair.Key)

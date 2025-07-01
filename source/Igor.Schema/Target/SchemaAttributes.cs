@@ -18,10 +18,6 @@ namespace Igor.Schema
         public static readonly StringAttributeDescriptor EditorKey = new StringAttributeDescriptor("editor_key", IgorAttributeTargets.Any, AttributeInheritance.Type);
         public static readonly StringAttributeDescriptor Help = new StringAttributeDescriptor("help", IgorAttributeTargets.Any) { DeprecationMessage = "Use annotations instead. Example: # single-line help string; <# multi-line help string #>" };
         public static readonly EnumAttributeDescriptor<DescriptorKind> Editor = new EnumAttributeDescriptor<DescriptorKind>("editor", IgorAttributeTargets.Any);
-        public static readonly IntAttributeDescriptor IntMin = new IntAttributeDescriptor("min", IgorAttributeTargets.Any, AttributeInheritance.Type);
-        public static readonly IntAttributeDescriptor IntMax = new IntAttributeDescriptor("max", IgorAttributeTargets.Any, AttributeInheritance.Type);
-        public static readonly FloatAttributeDescriptor FloatMin = new FloatAttributeDescriptor("min", IgorAttributeTargets.Any, AttributeInheritance.Type);
-        public static readonly FloatAttributeDescriptor FloatMax = new FloatAttributeDescriptor("max", IgorAttributeTargets.Any, AttributeInheritance.Type);
         public static readonly StringAttributeDescriptor PathRoot = new StringAttributeDescriptor("path.root", IgorAttributeTargets.Any, AttributeInheritance.Type);
         public static readonly StringAttributeDescriptor PathDefault = new StringAttributeDescriptor("path.default", IgorAttributeTargets.Any, AttributeInheritance.Type);
         public static readonly StringAttributeDescriptor PathExtension = new StringAttributeDescriptor("path.extension", IgorAttributeTargets.Any, AttributeInheritance.Type);

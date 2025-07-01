@@ -176,10 +176,10 @@ namespace Igor.Schema
                     return new BoolDescriptor(optional, host.schemaHelp, host.schemaEditorKey, host.schemaMeta, BoolValue(@default));
 
                 case DescriptorKind.Int:
-                    return new IntDescriptor(optional, host.schemaHelp, host.schemaEditorKey, host.schemaMeta, IntValue(@default), host.schemaIntMin, host.schemaIntMax, IntTypeName(type));
+                    return new IntDescriptor(optional, host.schemaHelp, host.schemaEditorKey, host.schemaMeta, IntValue(@default), host.intMin, host.intMax, IntTypeName(type));
 
                 case DescriptorKind.Float:
-                    return new FloatDescriptor(optional, host.schemaHelp, host.schemaEditorKey, host.schemaMeta, FloatValue(@default), host.schemaFloatMin, host.schemaFloatMax, FloatTypeName(type));
+                    return new FloatDescriptor(optional, host.schemaHelp, host.schemaEditorKey, host.schemaMeta, FloatValue(@default), host.floatMin, host.floatMax, FloatTypeName(type));
 
                 case DescriptorKind.String:
                     return new StringDescriptor(optional, host.schemaHelp, host.schemaEditorKey, host.schemaMeta, StringValue(@default), host.schemaMultiline, host.schemaNotEmpty, IsLowCardinality(type), host.schemaSource, host.schemaPathOptions, host.schemaSyntax);

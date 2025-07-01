@@ -123,6 +123,11 @@ namespace Igor.Core.AST
         /// <param name="attribute">Attribute descriptor</param>
         /// <returns>List of found attribute values</returns>
         public IReadOnlyList<T> ListAttribute<T>(AttributeDescriptor<T> attribute) => AttributeHelper.ListAttribute(this, attribute);
+
+        public int? intMin => Attribute(CoreAttributes.IntMin);
+        public int? intMax => Attribute(CoreAttributes.IntMax);
+        public double? floatMin => Attribute(CoreAttributes.FloatMin);
+        public double? floatMax => Attribute(CoreAttributes.FloatMax);
     }
 
     /// <summary>

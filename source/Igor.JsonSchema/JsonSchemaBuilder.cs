@@ -30,21 +30,21 @@ namespace Igor.JsonSchema
             return schema;
         }
 
-        public SchemaObject TypeSchema(IType rootType)
+        public SchemaObject TypeSchema(IType rootType, Statement host)
         {
             switch (rootType)
             {
-                case BuiltInType.Integer _: return new SchemaObject { Type = SimpleType.Integer };
-                case BuiltInType.Float _: return new SchemaObject { Type = SimpleType.Number };
+                case BuiltInType.Integer _: return new SchemaObject { Type = SimpleType.Integer, Minimum = host?.intMin, Maximum = host?.intMax };
+                case BuiltInType.Float _: return new SchemaObject { Type = SimpleType.Number, Minimum = host?.floatMin, Maximum = host?.floatMax };
                 case BuiltInType.String _: return new SchemaObject { Type = SimpleType.String };
                 case BuiltInType.Atom _: return new SchemaObject { Type = SimpleType.String };
                 case BuiltInType.Binary _: return new SchemaObject { Type = SimpleType.String };
                 case BuiltInType.Bool _: return new SchemaObject { Type = SimpleType.Boolean};
                 case BuiltInType.Json _: return new SchemaObject { };
-                case BuiltInType.List list: return new SchemaObject { Type = SimpleType.Array, Items = TypeSchema(list.ItemType) };
-                case BuiltInType.Dict dict: return new SchemaObject { Type = SimpleType.Object, AdditionalProperties = TypeSchema(dict.ValueType) };
-                case BuiltInType.Flags flags: return new SchemaObject { Type = SimpleType.Array, Items = TypeSchema(flags.ItemType) };
-                case BuiltInType.Optional optional: return TypeSchema(optional.ItemType);
+                case BuiltInType.List list: return new SchemaObject { Type = SimpleType.Array, Items = TypeSchema(list.ItemType, host) };
+                case BuiltInType.Dict dict: return new SchemaObject { Type = SimpleType.Object, AdditionalProperties = TypeSchema(dict.ValueType, null) };
+                case BuiltInType.Flags flags: return new SchemaObject { Type = SimpleType.Array, Items = TypeSchema(flags.ItemType, null) };
+                case BuiltInType.Optional optional: return TypeSchema(optional.ItemType, host);
                 case TypeForm typeForm: return EnsureDef(typeForm.Name, new Lazy<SchemaObject>(() => TypeFormSchema(typeForm)));
                 default: return new SchemaObject();
             }
@@ -54,7 +54,7 @@ namespace Igor.JsonSchema
         {
             var result = typeForm switch
             {
-                DefineForm defineForm => EnsureDef(typeForm.Name, new Lazy<SchemaObject>(() => TypeSchema(defineForm.Type))),
+                DefineForm defineForm => EnsureDef(typeForm.Name, new Lazy<SchemaObject>(() => TypeSchema(defineForm.Type, defineForm))),
                 EnumForm enumForm => EnumSchema(enumForm),
                 RecordForm recordForm => RecordSchema(recordForm),
                 VariantForm variantForm => VariantSchema(variantForm),
@@ -114,7 +114,7 @@ namespace Igor.JsonSchema
             {
                 return new SchemaObject { Const = SchemaValue(recordField.Default) };
             }
-            var schema = TypeSchema(recordField.Type);
+            var schema = TypeSchema(recordField.Type, recordField);
             if (recordField.DefaultValue != null)
             {
                 schema.Default = SchemaValue(recordField.DefaultValue);
@@ -128,7 +128,7 @@ namespace Igor.JsonSchema
 
         private SchemaObject VariantSchema(VariantForm variantForm)
         {
-            return new SchemaObject { OneOf = variantForm.Records.Select(TypeSchema).ToList() };
+            return new SchemaObject { OneOf = variantForm.Records.Select(r => TypeSchema(r, null)).ToList() };
         }
     }
 }
