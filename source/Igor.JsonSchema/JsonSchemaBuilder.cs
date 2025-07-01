@@ -44,6 +44,7 @@ namespace Igor.JsonSchema
                 case BuiltInType.List list: return new SchemaObject { Type = SimpleType.Array, Items = TypeSchema(list.ItemType) };
                 case BuiltInType.Dict dict: return new SchemaObject { Type = SimpleType.Object, AdditionalProperties = TypeSchema(dict.ValueType) };
                 case BuiltInType.Flags flags: return new SchemaObject { Type = SimpleType.Array, Items = TypeSchema(flags.ItemType) };
+                case BuiltInType.Optional optional: return TypeSchema(optional.ItemType);
                 case TypeForm typeForm: return EnsureDef(typeForm.Name, new Lazy<SchemaObject>(() => TypeFormSchema(typeForm)));
                 default: return new SchemaObject();
             }
@@ -51,14 +52,17 @@ namespace Igor.JsonSchema
 
         private SchemaObject TypeFormSchema(TypeForm typeForm)
         {
-            switch (typeForm)
+            var result = typeForm switch
             {
-                case DefineForm defineForm: return TypeSchema(defineForm.Type);
-                case EnumForm enumForm: return EnumSchema(enumForm);
-                case RecordForm recordForm: return RecordSchema(recordForm);
-                case VariantForm variantForm: return VariantSchema(variantForm);
-                default: return new SchemaObject();
-            }
+                DefineForm defineForm => EnsureDef(typeForm.Name, new Lazy<SchemaObject>(() => TypeSchema(defineForm.Type))),
+                EnumForm enumForm => EnumSchema(enumForm),
+                RecordForm recordForm => RecordSchema(recordForm),
+                VariantForm variantForm => VariantSchema(variantForm),
+                _ => new SchemaObject(),
+            };
+            if (typeForm.Annotation != "")
+                result.Description = typeForm.Annotation;
+            return result;
         }
 
         public ImmutableJson SchemaValue(Value value)
@@ -114,6 +118,10 @@ namespace Igor.JsonSchema
             if (recordField.DefaultValue != null)
             {
                 schema.Default = SchemaValue(recordField.DefaultValue);
+            }
+            if (recordField.Annotation != null)
+            {
+                schema.Description = recordField.Annotation;
             }
             return schema;
         }
