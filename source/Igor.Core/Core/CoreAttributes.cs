@@ -88,6 +88,8 @@ namespace Igor
         public static readonly IntAttributeDescriptor IntMax = new IntAttributeDescriptor("max", IgorAttributeTargets.Any, AttributeInheritance.Type);
         public static readonly FloatAttributeDescriptor FloatMin = new FloatAttributeDescriptor("min", IgorAttributeTargets.Any, AttributeInheritance.Type);
         public static readonly FloatAttributeDescriptor FloatMax = new FloatAttributeDescriptor("max", IgorAttributeTargets.Any, AttributeInheritance.Type);
+        public static readonly IntAttributeDescriptor MinLength = new IntAttributeDescriptor("min_length", IgorAttributeTargets.Any, AttributeInheritance.Type);
+        public static readonly IntAttributeDescriptor MaxLength = new IntAttributeDescriptor("max_length", IgorAttributeTargets.Any, AttributeInheritance.Type);
 
         /// <summary>
         /// Returns the list of all built-in target-independent attributes

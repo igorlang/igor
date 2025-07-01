@@ -36,7 +36,7 @@ namespace Igor.JsonSchema
             {
                 case BuiltInType.Integer _: return new SchemaObject { Type = SimpleType.Integer, Minimum = host?.intMin, Maximum = host?.intMax };
                 case BuiltInType.Float _: return new SchemaObject { Type = SimpleType.Number, Minimum = host?.floatMin, Maximum = host?.floatMax };
-                case BuiltInType.String _: return new SchemaObject { Type = SimpleType.String };
+                case BuiltInType.String _: return new SchemaObject { Type = SimpleType.String, MinLength = (uint?)host?.Attribute(CoreAttributes.MinLength), MaxLength = (uint?)host?.Attribute(CoreAttributes.MaxLength) };
                 case BuiltInType.Atom _: return new SchemaObject { Type = SimpleType.String };
                 case BuiltInType.Binary _: return new SchemaObject { Type = SimpleType.String };
                 case BuiltInType.Bool _: return new SchemaObject { Type = SimpleType.Boolean};
